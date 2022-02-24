@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
 import styled from "styled-components";
 import Header from "./Components/Navbar"
+import AddProduct from "./Components/AddProduct";
 
 const Home = React.lazy(() => import("./Components/Home"));
 const Products = React.lazy(() => import("./Components/Products"));
@@ -17,10 +18,15 @@ function App() {
       <Suspense fallback={<p>...Loading page please wait</p>}>
         <Switch>
           <Route
+            path="/addproduct"
+            render={(props) => <AddProduct {...props} />}>
+          </Route>
+          <Route
               path="/"
               exact
               render={(props) => <Home {...props} />}
-            ></Route>
+            >
+            </Route>
             <Route
               path="/products"
               render={(props) => <Products {...props} />}

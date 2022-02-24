@@ -1,20 +1,22 @@
 import React from "react";
 import styled from "styled-components";
-import products from "../products.json";
-//import Product from "./Product";
+
+import { useApi } from "../hooks/useApi";
 
 export default function ProductDetails(props) {
-  const name = props.match.params.name; 
-  const toRender = products.filter((product) => product.name === name)[0];
+  const id = props.match.params.id; 
+  const [toRender, err, reload] = useApi("product/"+id);
+  //const toRender = products.filter((product) => product._id === id)[0];
+  console.log("toRender",toRender) ;
   return (
-    <>     
+    <>
       <Container>
-        {toRender ? (
+        {toRender? (
           <>
           <ContentBox>
-        <Content1><img src={toRender.img} width="600" height="600" alt={toRender.name}/></Content1>
+        <Content1><img src={process.env.REACT_APP_API_URL_UPLOADS + "/" + toRender.image} width="600" height="600" alt={toRender.title}/></Content1>
         <Content2>
-        <H1>{toRender.name}</H1>
+        <H1>{toRender.title}</H1>
         <H3>Description 
         :</H3>
         <Span>{toRender.description}</Span>
@@ -40,12 +42,10 @@ export default function ProductDetails(props) {
     </>
   );
 }
-/*
 const ProductsWrapper = styled.div`
   text-align: center;
   display: flex;
 `;
-*/
 const Container = styled.div`
   display: grid;
   height: 100vh;

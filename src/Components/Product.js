@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import styled from "styled-components";
+export default function Product(props) {
 
-export default function Product(props){
+  const history = useHistory();
   const [product, setProduct] = useState(props.product);
   const [updated, setUpdated] = useState(0);
+ 
   useEffect(() => {
     console.log(
       "I have finished rendering " +
@@ -22,6 +25,7 @@ export default function Product(props){
     });
     setUpdated((u) => u + 1);
   };
+
   useEffect(() => {
     console.log(updated);
   }, [updated]);
@@ -29,12 +33,12 @@ export default function Product(props){
     product.likes >= 5 ? (
 <ProductFrameBest>
       <ProductImageWrapperBest>
-        <ProductImageBest src={product.img}></ProductImageBest>
+        <ProductImageBest src={process.env.REACT_APP_API_URL_UPLOADS + "/" + product.image}></ProductImageBest>
       </ProductImageWrapperBest>
       <ProductInfoWrapperBest>
       <span>Best Product</span>
         <span>
-          <a href={"/product/" + product.name}>{product.name}</a>
+          <a href={"/product/" + product._id}>{product.title}</a>
         </span>
         <span> {product.price} </span>
         <span>Likes : {product.likes} </span>
@@ -44,11 +48,11 @@ export default function Product(props){
     ):(
     <ProductFrame>
       <ProductImageWrapper>
-        <ProductImage src={product.img}></ProductImage>
+        <ProductImage src={process.env.REACT_APP_API_URL_UPLOADS + "/" + product.image}></ProductImage>
       </ProductImageWrapper>
       <ProductInfoWrapper>
         <span>
-          <a href={"/product/" + product.name}>{product.name}</a>
+          <a href={"/product/" + product._id}>{product.title}</a>
         </span>
         <span> {product.price} </span>
         <span>Likes : {product.likes} </span>
@@ -56,58 +60,19 @@ export default function Product(props){
       </ProductInfoWrapper>
     </ProductFrame>
     )
+    
   );
 }
-
-  /*constructor(props) {
-    super(props);
-    this.state = { product: props.product, updated: 0, likes: 0 };
-    this.addLikes = this.addLikes.bind(this);
-  }
-  */
- /*
-  componentDidMount(){
-    console.log(
-      "I have finished rendering" +
-      this.props.product.name +
-      " price: " +
-      this.state.product.price
-    );
-  }
-
-  componentDidUpdate(){
-    console.log("I have been updated " + this.state.updated + "times");
-  }
-
-  componentWillUnmount(){
-    console.log("I'm being destroyed");
-  }
-  */
-  /*
-    render(){
-        return(
-            <ProductFrame>
-                <ProductImageWrapper>
-                    <ProductImage src={this.state.product.img}></ProductImage>
-                </ProductImageWrapper>
-                <ProductInfoWrapper>
-                    <span>{this.state.product.name}</span>
-                    <span>{this.state.product.price}</span>
-                    <span>Likes : {this.state.likes} </span>
-                    <button onClick={this.addLikes}>Like</button>
-                </ProductInfoWrapper>
-            </ProductFrame>
-        );
-    }
-    addLikes(e) {
-      e.preventDefault();
-      this.setState((oldState) => ({
-        likes: oldState.likes +1 ,
-        updated: oldState.updated + 1,
-      }));
-    }
-}
-*/
+const ButtonDelete = styled.button`
+  /* Adapt the colors based on primary prop */
+  background: ${props => props.primary ? "red" : "white"};
+  color: ${props => props.primary ? "white" : "red"};
+  font-size: 1.1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid red;
+  border-radius: 3px;
+`;
 const ProductFrame = styled.div`
   border-radius: 25px;
   min-height: 200px;
@@ -177,5 +142,16 @@ const Button = styled.button`
   margin: 1em;
   padding: 0.25em 1em;
   border: 2px solid palevioletred;
+  border-radius: 3px;
+`;
+const ButtonUpdate = styled.button`
+  /* Adapt the colors based on primary prop */
+  background: ${props => props.primary ? "blue" : "white"};
+  color: ${props => props.primary ? "white" : "blue"};
+
+  font-size: 1.1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid blue;
   border-radius: 3px;
 `;
