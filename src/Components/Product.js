@@ -57,6 +57,9 @@ export default function Product(props) {
         <span> {product.price} </span>
         <span>Likes : {product.likes} </span>
         <Button onClick={addLike}>Like</Button>
+        <ButtonUpdate onClick={() => history.replace("/update/" + product._id)}>
+       Update
+     </ButtonUpdate>
       </ProductInfoWrapper>
     </ProductFrame>
     )

@@ -4,6 +4,7 @@ import "./App.css";
 import styled from "styled-components";
 import Header from "./Components/Navbar"
 import AddProduct from "./Components/AddProduct";
+import UpdateProduct from "./Components/UpdateProduct";
 
 const Home = React.lazy(() => import("./Components/Home"));
 const Products = React.lazy(() => import("./Components/Products"));
@@ -34,6 +35,10 @@ function App() {
             <Route
               path="/product/:name"
               render={(props) => <ProductDetails {...props} />}
+            ></Route>
+            <Route
+                   path="/update/:id"
+                   render={(props) => <UpdateProduct {...props} />}
             ></Route>
             <Route exact render={() => <p>Page not found!</p>}></Route>
           </Switch>
