@@ -8,6 +8,16 @@ import {queryApi} from "../utils/queryApi";
 export default function Products(props) {
     const[result,error,reload] = useApi("products");
     //const [products, err, reload] = useApi('products');
+
+    const deleteProduct = async (id) => {
+      console.log(id);
+      const [res, err] = await queryApi("product/" + id, {}, "DELETE");
+      if (err) {
+          console.log(err);
+      } else 
+     reload();
+      
+    };
     return (
         <>
         <Footer>
@@ -18,8 +28,8 @@ export default function Products(props) {
         <ProductsWrapper> {
             result?.map((product, index) => (
                 <Product product={product}
-                    key={index}>
-                </Product>
+                    key={index}
+                    deleteProduct={deleteProduct}></Product>
             ))
         } </ProductsWrapper>
         </>

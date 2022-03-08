@@ -60,6 +60,9 @@ export default function Product(props) {
         <ButtonUpdate onClick={() => history.replace("/update/" + product._id)}>
        Update
      </ButtonUpdate>
+     <ButtonDelete onClick={() => props.deleteProduct(product._id)}>
+       Delete
+     </ButtonDelete>
       </ProductInfoWrapper>
     </ProductFrame>
     )
