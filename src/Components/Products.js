@@ -4,10 +4,15 @@ import styled from "styled-components";
 import Product from "./Product";
 import {useApi} from "../hooks/useApi";
 import {queryApi} from "../utils/queryApi";
+import { useDispatch, useSelector } from "react-redux";
+import { selectProducts } from "../redux/slices/productsSlice";
 
 export default function Products(props) {
-    const[result,error,reload] = useApi("products");
+    //const[products,error,reload] = useApi("products");
     //const [products, err, reload] = useApi('products');
+
+    const dispatch = useDispatch();
+    const [products] = useSelector(selectProducts);
 
     const deleteProduct = async (id) => {
       console.log(id);
@@ -15,8 +20,7 @@ export default function Products(props) {
       if (err) {
           console.log(err);
       } else 
-     reload();
-      
+        dispatch(deleteProduct(id));
     };
     return (
         <>
@@ -25,13 +29,18 @@ export default function Products(props) {
                     () => props.history.replace("/addproduct")
                 }>Add new product</Button>
         </Footer>
-        <ProductsWrapper> {
-            result?.map((product, index) => (
+        <ProductsWrapper> 
+          {" "}
+          {products &&
+            products.map((product, index) => (
                 <Product product={product}
                     key={index}
-                    deleteProduct={deleteProduct}></Product>
+                    deleteProduct={deleteProduct}>
+
+                </Product>
             ))
-        } </ProductsWrapper>
+        } {" "}
+        </ProductsWrapper>
         </>
     );
 }

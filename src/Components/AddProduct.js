@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { queryApi } from "../utils/queryApi";
-export default function AddProduct() {
+export default function AddProduct(props) {
 
 
     const history = useHistory();

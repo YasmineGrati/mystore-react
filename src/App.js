@@ -1,16 +1,22 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
 import styled from "styled-components";
 import Header from "./Components/Navbar"
 import AddProduct from "./Components/AddProduct";
 import UpdateProduct from "./Components/UpdateProduct";
+import { useDispatch } from "react-redux";
+import { fetchProducts } from "./redux/slices/productsSlice";
 
 const Home = React.lazy(() => import("./Components/Home"));
 const Products = React.lazy(() => import("./Components/Products"));
 const ProductDetails = React.lazy(() => import("./Components/ProductDetails"));
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
   return (
     <>
     <Header></Header>
